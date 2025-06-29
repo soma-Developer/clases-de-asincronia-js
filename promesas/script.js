@@ -56,12 +56,12 @@ const usuarios = [
 // Simulamos una función que representa una tarea asíncrona, como una petición a una API
 
 function conseguirDatosUsuario(usuario) {
-    return new Promise((resolve, reject) => {
+    return new Promise((res, rej) => {
       // Simulamos retraso con setTimeout
       setTimeout(() => {
         if (arrayId.includes(usuario.id)) {
           // Simulamos una respuesta exitosa
-          resolve({ 
+          res({ 
             id: usuario.id,
             nombre: usuario.nombre,
             rol: usuario.rol,
@@ -69,7 +69,7 @@ function conseguirDatosUsuario(usuario) {
           });
         } else {
           // Simulamos un error
-          reject(new Error("Usuario no encontrado"));
+          rej(new Error("Usuario no encontrado"));
         }
       }, 1000); // 2 segundos de espera
     });
@@ -130,12 +130,12 @@ async function mostrarInfo(usuario) {
 
 
 function verificarEdad(dataUser) {
-  return new Promise((resolve, reject) => {
+  return new Promise((res, rej) => {
     setTimeout(() => {
       if (dataUser.edad >= 18) {
-        resolve(" Puedes acceder");
+        res(" Puedes acceder");
       } else {
-        reject(new Error(" Eres menor de edad"));
+        rej(new Error(" Eres menor de edad"));
       }
     }, 1000);
   });
