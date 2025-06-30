@@ -18,7 +18,7 @@
 
 ## 🧠 Descripción del proyecto
 
-Este código simula una situación real en backend: buscar datos de un usuario en una base de datos (falsa) y verificar si puede acceder al sistema según su edad.  
+Este código simula una situación real en backend: buscar datos de un Usuario en una base de datos (falsa) y verificar si puede acceder al sistema según su edad.  
 Se presentan dos versiones:
 - 🧱 **Versión básica con `.then()` y `.catch()`**
 - 🚀 **Versión mejorada con `async/await` para ejecución secuencial**

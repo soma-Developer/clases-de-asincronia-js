@@ -23,7 +23,9 @@ function  requestHandler(req, res){
     })
 }
 
-class usuario {
+// aqui escribimos un ejemplo de uso de reques / response para el consumo de promesas en procesos de peticion HTTP pero para entender mejor sus usos en su expresion como promesas para entender mejor la asincronia hice este pequeño ejercicio donde te muestro mas a fondo su uso no para responder peticiones HTTP sino para entender las respuestas asincronas con mayor facilidad sin saber hacerca de peticiones  con express.js o consultas con servidores. estos ejercicios son ideales para aprender, modificar y entender los usos de una promesa con parametros de exito y error. si no entiendes el primer ejemplo de uso este sera mas diverdito y en mi opinion propia como su creador mas faciles de aprender.
+
+class Usuario {
     constructor(id, nombre, rol, edad) {
         this.id = parseInt(id);
         this.nombre = nombre;
@@ -46,54 +48,54 @@ class usuario {
 
 let arrayId= []
 const usuarios = [
-    new usuario (1, "Soma", "Backend Dev", 19),
-    new usuario (2, "alejandra", "Backend Dev", 17),
-    new usuario (3, "manuel", "Backend Dev", 26),
-    new usuario ("8", "enrique", "Backend Dev", 26),
-    new usuario ("jose", "carla", "Backend Dev", 17)
+    new Usuario (154461, "Soma", "Backend Dev", 19),
+    new Usuario (254896, "alejandra", "Backend Dev", 17),
+    new Usuario (349865, "manuel", "Backend Dev", 26),
+    new Usuario ("86458", "enrique", "Backend Dev", 26),
+    new Usuario ("jose", "carla", "Backend Dev", 17)
 ]
 
 // Simulamos una función que representa una tarea asíncrona, como una petición a una API
 
-function conseguirDatosUsuario(usuario) {
+function conseguirDatosUsuario(Usuario) {
     return new Promise((res, rej) => {
       // Simulamos retraso con setTimeout
       setTimeout(() => {
-        if (arrayId.includes(usuario.id)) {
+        if (arrayId.includes(Usuario.id)) {
           // Simulamos una respuesta exitosa
           res({ 
-            id: usuario.id,
-            nombre: usuario.nombre,
-            rol: usuario.rol,
-            edad: usuario.edad,
+            id: Usuario.id,
+            nombre: Usuario.nombre,
+            rol: Usuario.rol,
+            edad: Usuario.edad,
           });
         } else {
           // Simulamos un error
           rej(new Error("Usuario no encontrado"));
         }
-      }, 1000); // 2 segundos de espera
+      }, 1000); // 1 segundos de espera
     });
   }
   
   // Usamos la promesa con .then() y .catch()
 
 /* ---------------------------------------------------------------------------------------- */
-function mostrarInfo(usuario) {
-  conseguirDatosUsuario(usuario)
-    .then((dataUser) => { 
-      console.log(`🟢 dataUser recibida de ${dataUser.nombre}:`, dataUser);
+function mostrarInfo(Usuario) {
+  conseguirDatosUsuario(Usuario)
+    .then((dataUser) => {  
+      console.log(`🟢 info recibida de ${dataUser.nombre}:`, dataUser);
       return verificarEdad(dataUser); // encadena con verificación de edad
     })
     .then((mensajePermiso) => {
       console.log(`🔓 Permisos de acceso: ${mensajePermiso}`);
     })
     .catch((error) => {
-      console.error(`❌ Error con el usuario ${usuario.nombre}:`, error.message);
+      console.error(`❌ Error con el Usuario ${Usuario.nombre}:`, error.message);
     });
 }
 
-usuarios.forEach((usuario) => {
-    mostrarInfo(usuario);
+usuarios.forEach((Usuario) => {
+    mostrarInfo(Usuario);
 });
 /* ---------------------------------------------------------------------------------------- */
 
@@ -101,22 +103,22 @@ usuarios.forEach((usuario) => {
 /* ---------------------------------------------------------------------------------------- */
    /* <-borrar
 
-async function mostrarInfo(usuario) {
+async function mostrarInfo(Usuario) {
     try {
-      const dataUser = await conseguirDatosUsuario(usuario);
+      const dataUser = await conseguirDatosUsuario(Usuario);
       console.log(`🟢 Datos recibidos de ${dataUser.nombre}:`, dataUser);
   
       const mensajePermiso = await verificarEdad(dataUser);
       console.log(`🔓 Permisos de acceso para ${dataUser.nombre}: ${mensajePermiso}`);
     } catch (error) {
-      console.error(`❌ Error con el usuario ${usuario.nombre}:`, error.message);
+      console.error(`❌ Error con el Usuario ${Usuario.nombre}:`, error.message);
     }
   }
   
   // Ejecutar uno por uno de forma secuencial
   async function ejecutarUsuariosSecuencialmente(lista) {
-    for (const usuario of lista) {
-      await mostrarInfo(usuario);
+    for (const Usuario of lista) {
+      await mostrarInfo(Usuario);
     }
   }
   
